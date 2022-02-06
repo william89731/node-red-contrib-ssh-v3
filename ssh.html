@@ -1,0 +1,60 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ssh-v3', {
+        category: 'input',
+        color: '#7fff00',
+        defaults: {
+            debug: {value:false},
+            ssh: { value: "" },
+            hostname: { value: "" },
+            name: { value: "" },
+        },
+        credentials: {
+            username: { type: "text" },
+            password: { type: "password" }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "white-globe.svg",
+        label: function () {
+            return this.name || "ssh-v3";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="ssh-v3">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-hostname"><i class="fa fa-podcast"></i> Hostname</label>
+        <input type="text" id="node-input-hostname" placeholder="127.0.0.1">
+    </div>
+    
+    <div class="form-row">
+        <label for="node-input-username"><i class="fa fa-user-circle-o"></i> Username</label>
+        <input type="text" id="node-input-username" placeholder="Username">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-password"><i class="fa fa-user-secret"></i> Password</label>
+        <input type="text" id="node-input-password" placeholder="Password">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-ssh"><i class="fa fa-podcast"></i> Ssh</label>
+        <input type="text" id="node-input-ssh" placeholder="/home/user/.ssh/id_rsa">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-debug"><i class="fa fa-server"></i> Debug</label>
+        <input type="checkbox" id="node-input-debug" placeholder="">
+    </div>
+    
+    
+</script>
+
+<script type="text/x-red" data-help-name="ssh-v3">
+    <p>A simple node that handle ssh client</p>
+</script>

@@ -1,0 +1,19 @@
+{
+  "name": "node-red-contrib-ssh-v3",
+  "version": "1.0.0",
+  "description": "ssh connection",
+  "main": "ssh.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "william",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "ssh-v3": "ssh.js"
+    }
+  },
+  "dependencies": {
+    "ssh2": "^1.6.0"
+  }
+}
