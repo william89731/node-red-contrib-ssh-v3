@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "william",
+  "author": "william89731",
   "license": "ISC",
+  "keywords": [ "node-red" ],
   "node-red": {
     "nodes": {
       "ssh-v3": "ssh.js"
