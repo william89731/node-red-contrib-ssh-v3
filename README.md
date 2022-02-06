@@ -1,23 +1,17 @@
-# node-red-contrib-crp
+# node-red-contrib-ssh-v3
 
-![Screenshot_20210810_142815](https://user-images.githubusercontent.com/68069659/128866938-794eceb9-c1a6-4889-878b-0c9c5a1d0ea3.png)
+![Istantanea_2022-02-06_18-07-55](https://user-images.githubusercontent.com/68069659/152692226-9d7e81d2-0d1d-4aa5-a3cd-dc803d9b3202.png)
 
 
-Count,Reset to allow Payload  :-)
+ssh connection remote host
 
-![inpostazioniNodo](https://user-images.githubusercontent.com/68069659/129620364-0c98dcad-5b87-4822-894c-8d18e3e15903.png)
+![Istantanea_2022-02-06_18-05-41](https://user-images.githubusercontent.com/68069659/152692171-867b60a5-bbfc-4d0a-8334-f7e5e45bd839.png)
 
-thanks to:
 
-@folgore, big boss of [nodeRED italia](https://t.me/noderedIT)
-
-@patrick tiraboschi, admin of [[SN]javaScript italia](https://t.me/javascript_ita) 
-
-@fatshotty, great member of [[SN]javaScript italia](https://t.me/javascript_ita) 
 
 # installation
 
-![Screenshot_20210815_124901](https://user-images.githubusercontent.com/68069659/129475979-7d52f4ab-5ff7-4cff-8e35-eda76204aa94.png)
+![Istantanea_2022-02-06_18-10-37](https://user-images.githubusercontent.com/68069659/152692337-0e6ade2f-c913-4104-b157-6bb336ebbe9f.png)
 
 or **npm i node-red-contrib-crp**
 
@@ -25,4 +19,4 @@ or **npm i node-red-contrib-crp**
 
 example:
 
-![Screenshot_20210815_123500](https://user-images.githubusercontent.com/68069659/129476049-ac26df3d-69ee-4196-868a-e939e8ecac4a.png)
+![Istantanea_2022-02-06_18-12-52](https://user-images.githubusercontent.com/68069659/152692413-680c0c96-3b5f-4a8f-8689-4254b9b637b6.png)
