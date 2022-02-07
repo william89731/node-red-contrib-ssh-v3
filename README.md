@@ -13,7 +13,7 @@ ssh connection remote host
 
 ![Istantanea_2022-02-06_18-10-37](https://user-images.githubusercontent.com/68069659/152692337-0e6ade2f-c913-4104-b157-6bb336ebbe9f.png)
 
-or **npm i node-red-contrib-crp**
+or **npm i node-red-contrib-ssh-v3**
 
 # usage
 
