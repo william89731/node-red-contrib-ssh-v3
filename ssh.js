@@ -152,7 +152,6 @@ module.exports = function (RED) {
         node.debug("SSH-CLI setup done.");
     }
 
-    // Register this node
     RED.nodes.registerType("ssh-v3", SshV3, {
         credentials: {
             email: { type: "text" },
