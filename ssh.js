@@ -151,7 +151,6 @@ module.exports = function (RED) {
     
     RED.nodes.registerType("ssh-v3",SshV3, {
         credentials: {
-            email: { type: "text" },
             username: { type: "text" },
             password: { type: "password" }
         }
