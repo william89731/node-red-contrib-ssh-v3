@@ -1,4 +1,5 @@
-![Istantanea_2022-02-06_18-07-55](https://user-images.githubusercontent.com/68069659/152692226-9d7e81d2-0d1d-4aa5-a3cd-dc803d9b3202.png)
+![Schermata del 2022-09-17 06-41-12](https://user-images.githubusercontent.com/68069659/190840770-922ae42c-4c7f-4fbb-a0e0-8a8e5da53058.png)
+
 
 [![library](https://img.shields.io/badge/library-nodered-red)](https://flows.nodered.org/node/node-red-contrib-ssh-v3)
 [![package](https://img.shields.io/badge/package-npm-success)](https://www.npmjs.com/package/node-red-contrib-ssh-v3)
@@ -8,8 +9,6 @@
 # node-red-contrib-ssh-v3
 
 ssh connection remote host
-
-![Schermata del 2022-09-17 06-13-27](https://user-images.githubusercontent.com/68069659/190840169-3b77c2de-34a0-420d-9d3e-9918e6ef717b.png)
 
 
 # installation
