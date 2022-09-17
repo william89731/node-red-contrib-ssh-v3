@@ -9,18 +9,24 @@
 
 ssh connection remote host
 
-![Istantanea_2022-02-06_18-05-41](https://user-images.githubusercontent.com/68069659/152692171-867b60a5-bbfc-4d0a-8334-f7e5e45bd839.png)
+![Schermata del 2022-09-17 06-13-27](https://user-images.githubusercontent.com/68069659/190840169-3b77c2de-34a0-420d-9d3e-9918e6ef717b.png)
 
-disc
 
 # installation
 
-![Istantanea_2022-02-06_18-10-37](https://user-images.githubusercontent.com/68069659/152692337-0e6ade2f-c913-4104-b157-6bb336ebbe9f.png)
+![Schermata del 2022-09-17 06-29-57](https://user-images.githubusercontent.com/68069659/190840457-8a8a09c0-ab3c-4dc7-bcd7-dfe18ef8e768.png)
 
-or **npm i node-red-contrib-ssh-v3**
+or 
+```bash 
+npm i node-red-contrib-ssh-v3
+```
 
 # usage
 
 example:
 
-![Istantanea_2022-02-06_18-12-52](https://user-images.githubusercontent.com/68069659/152692413-680c0c96-3b5f-4a8f-8689-4254b9b637b6.png)
+![Schermata del 2022-09-17 06-28-03](https://user-images.githubusercontent.com/68069659/190840429-bc1949ea-1823-496e-b96e-2f1cb196876c.png)
+
+# credits
+
+source from [node-red-contrib-ssh](https://github.com/yroffin/node-red-contrib-ssh)
