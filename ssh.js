@@ -1,162 +1,96 @@
 'use strict';
 
-const { Client } = require('ssh2');
-const { Mutex } = require('async-mutex');
-
 module.exports = function (RED) {
-    async function _connectClient(node, callback, failed = undefined){
-        const release = await node.connectMutex.acquire();
-
-        if(node.isConnected) {
-            release();
-            callback(node.client);
-            return;
-        }
-
-        // Ssh client handler
-        node.client = new Client();
-
-        node.client.on('ready', () => {
-            node.isConnected = true;
-            node.log("Ssh client ready");
-            node.status({ fill: "green", shape: "dot", text: 'Connected' });
-
-            release();
-            callback(node.client);
-        });
-
-        node.client.on('close', () => {
-            node.isConnected = false;
-            node.status({ fill: "red", shape: "dot", text: 'Disconnected' });
-        });
-
-        node.client.on('end', () => {
-            node.isConnected = false;
-            node.status({ fill: "red", shape: "dot", text: "Disconnected" });
-        });
-
-        node.client.on('error', (err) => {
-            node.status({fill: "red", shape: "dot", text: err});
-            node.log(err);
-            release();
-            node.isConnected = false;
-
-            if(failed) {
-                failed(err);
-            }
-        });
-
-        node.client.on('continue', () => {
-            if(node.continue) {
-                node.continue();
-            }
-        })
-
-        //node.log("SSH Key:"+config.ssh);
-        node.client.connect(node.options);
-    }
-
     function SshV3(config) {
         RED.nodes.createNode(this, config);
 
-        const node = this;
+        let node = this;
 
-        node.options = {
+        node.status({ fill: "red", shape: "dot", text: "waiting" });
+
+        let Client = require('ssh2').Client;
+
+        let session = {
+            code: 0,
+            stdout: [],
+            stderr: []
+        };
+
+        let notify = (type, data) => {
+            switch (type) {
+                case 0:
+                    session.code = data;
+                    node.send(session);
+                    session = {
+                        code: 0,
+                        stdout: [],
+                        stderr: []
+                    };
+                    break;
+                case 1:
+                    session.stdout.push(data.toString());
+                    break;
+                case 2:
+                    session.stderr.push(data.toString());
+                    break;
+            }
+        };
+
+
+        let conn = new Client();
+
+        conn.on('ready', () => {
+            node.status({ fill: "green", shape: "dot", text: 'Ready' });
+            node.on('input', (msg) => {
+                conn.exec(msg.payload, (err, stream) => {
+                    if (err) throw err;
+                    stream.on('close', function (code, signal) {
+                        node.warn('Stream :: close :: code: ' + code + ', signal: ' + signal);
+                        conn.end();
+                        notify(0, code);
+                    }).on('data', (data) => {
+                        node.status({ fill: "green", shape: "dot", text: data.toString() });
+                        notify(1, data);
+                    }).stderr.on('data', (data) => {
+                        node.status({ fill: "black", shape: "dot", text: data.toString() });
+                        notify(2, data);
+                    });
+                });
+            })
+        });
+
+        conn.on('close', (err) => {
+            node.warn('Ssh client close', err);
+        });
+
+        conn.on('error', (err) => {
+            node.warn('Ssh client error', err);
+        });
+
+        conn.connect({
             host: config.hostname,
             port: 22,
             username: node.credentials.username ? node.credentials.username : undefined,
             password: node.credentials.password ? node.credentials.password : undefined,
             privateKey: config.ssh ? require('fs').readFileSync(config.ssh) : undefined
-        };
+        });
 
-        node.connectMutex = new Mutex();
-        node.sendMutex = new Mutex();
 
-        node.status({ fill: "blue", shape: "dot", text: "Initializing" });
-
-        // Handle node close
         node.on('close', function () {
-            node.client && node.client.end();
-            node.client && node.client.destroy();
+            node.warn('Ssh client dispose', err);
+            conn ? conn.close() : undefined;
+            conn ? conn.dispose : undefined;
         });
-
-        node.on('input', async (msg, send, done) => {
-            if (!msg.payload) {
-                node.warn("Invalid msg.payload.");
-                return;
-            }
-
-            const release = await node.sendMutex.acquire();
-
-            // Session handler
-            const session = {
-                code: 0,
-                stdout: [],
-                stderr: []
-            };
-
-            const notify = (type, data) => {
-                switch (type) {
-                    case 0:
-                        session.code = data;
-                        msg.session = session;
-                        send(msg);
-                        done();
-                        break;
-                    case 1:
-                        session.stdout.push(data.toString());
-                        break;
-                    case 2:
-                        console.log(data.toString());
-                        session.stderr.push(data.toString());
-                        break;
-                }
-            };
-
-
-            await _connectClient(node, (conn) => {
-                node.continue = () => {
-                    release();
-                };
-
-                console.log(msg.payload);
-
-                const wait = conn.exec(msg.payload, (err, stream) => {
-                    if (err) {
-                        node.log("Ssh client error in input.");
-                        node.error(err, msg);
-                        return;
-                    }
-
-                    stream.on('close', function (code, signal) {
-                        notify(0, code);
-                    }).on('data', (data) => {
-                        notify(1, data);
-                    }).stderr.on('data', (data) => {
-                        notify(2, data);
-                    });
-                });
-
-                if(wait) {
-                    node.continue = null;
-                    release();
-                }
-            }, (err) => {
-                release();
-                node.error(err, msg);
-            });
-        });
-
-        _connectClient(node, (conn) => { node.debug("SSH-CLI initial connection succeeded."); });
-
-        node.debug("SSH-CLI setup done.");
     }
+
 
     RED.nodes.registerType("ssh-v3", SshV3, {
         credentials: {
-            email: { type: "text" },
             username: { type: "text" },
-            password: { type: "password" }
+            password: { type: "text" },
+
+
         }
+
     });
 }

@@ -1,20 +1,22 @@
 <script type="text/javascript">
     RED.nodes.registerType('ssh-v3', {
-        category: 'input',
+        category: 'server',
         color: '#7fff00',
         defaults: {
-            debug: {value:false},
-            ssh: { value: "" },
-            hostname: { value: "" },
-            name: { value: "" },
+             debug: {value:false},
+             ssh: { value: "" },
+             hostname: { value: "" },
+             name: { value: "" },
+             port: { value: "22" },
+             
         },
         credentials: {
             username: { type: "text" },
-            password: { type: "password" }
+            password: { type: "text" }
         },
         inputs: 1,
         outputs: 1,
-        icon: "white-globe.svg",
+        icon: "font-awesome/fa-server",
         label: function () {
             return this.name || "ssh-v3";
         }
@@ -25,6 +27,12 @@
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    
+    <div class="form-row">
+        <label for="node-input-port"><i class="fa fa-server"></i> Port</label>
+        <input type="text" id="node-input-port" placeholder="set default (22) or another port">
     </div>
 
     <div class="form-row">
@@ -45,7 +53,7 @@
     <div class="form-row">
         <label for="node-input-ssh"><i class="fa fa-podcast"></i> Ssh</label>
         <input type="text" id="node-input-ssh" placeholder="/home/user/.ssh/id_rsa">
-    </div>
+    </div>  
 
     <div class="form-row">
         <label for="node-input-debug"><i class="fa fa-server"></i> Debug</label>
@@ -56,5 +64,5 @@
 </script>
 
 <script type="text/x-red" data-help-name="ssh-v3">
-    <p>A simple node that handle ssh client</p>
+    <p>ssh connection</p>
 </script>
