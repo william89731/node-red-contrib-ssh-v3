@@ -1,19 +1,79 @@
 <script type="text/javascript">
+    RED.nodes.registerType('ssh-conf',{
+        category: 'config',
+        defaults: {
+            ssh: { value: "" },
+            name: { value: "" },
+            userlabel: { value: "" }
+        },
+        credentials: {
+            username: { type: "text" },
+            password: { type: "password" },
+            hostname: { value: "" },
+            port: { value: "22" },
+        },
+        color: '#7fff00',
+        label: function () {
+            return this.userlabel;
+        },
+        oneditsave: function(d) {
+            let u = $("#node-config-input-username").val();
+            let h = $("#node-config-input-hostname").val();
+            
+            this.userlabel = (u?u+"@":"")+ (h?h:"");
+        }
+        
+    });
+</script>
+
+<script type="text/html" data-template-name="ssh-conf">
+    <div class="form-row">
+        <label for="node-config-input-hostname"><i class="fa fa-podcast"></i> Hostname</label>
+        <input type="text" id="node-config-input-hostname" placeholder="127.0.0.1">
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="fa fa-server"></i> Port</label>
+        <input type="text" id="node-config-input-port" placeholder="set default (22) or another port">
+    </div>
+
+    <div class="form-row">
+      <label for="node-config-input-username"><i class="fa fa-user"></i> Username</label>
+      <input type="text" id="node-config-input-username" placeholder="$USER">
+    </div>
+
+    <div class="form-row">
+      <label for="node-config-input-password"><i class="fa fa-key"></i> Password</label>
+      <input type="password" id="node-config-input-password" placeholder="STRONG PASS">
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-ssh"><i class="fa fa-podcast"></i> Ssh</label>
+        <input type="text" id="node-config-input-ssh" placeholder="/home/user/.ssh/id_rsa">
+    </div> 
+
+</script>
+
+<script type="text/x-red" data-help-name="ssh-conf">
+  <p> ssh configuration</p>
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
     RED.nodes.registerType('ssh-v3', {
         category: 'server',
         color: '#7fff00',
         defaults: {
-             debug: {value:false},
-             ssh: { value: "" },
-             hostname: { value: "" },
-             name: { value: "" },
-             port: { value: "22" },
-             
+            conf: { value: "", type: "ssh-conf" },
+            debug: { value: false },
+            
+
         },
-        credentials: {
-            username: { type: "text" },
-            password: { type: "password" }
-        },
+        
         inputs: 1,
         outputs: 1,
         icon: "font-awesome/fa-server",
@@ -24,36 +84,16 @@
 </script>
 
 <script type="text/x-red" data-template-name="ssh-v3">
+
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
-    
     <div class="form-row">
-        <label for="node-input-port"><i class="fa fa-server"></i> Port</label>
-        <input type="text" id="node-input-port" placeholder="set default (22) or another port">
+        <label for="node-input-conf"><i class="fa fa-globe"></i> server</label>
+        <input type="text" id="node-input-conf">
     </div>
-
-    <div class="form-row">
-        <label for="node-input-hostname"><i class="fa fa-podcast"></i> Hostname</label>
-        <input type="text" id="node-input-hostname" placeholder="127.0.0.1">
-    </div>
-    
-    <div class="form-row">
-        <label for="node-input-username"><i class="fa fa-user-circle-o"></i> Username</label>
-        <input type="text" id="node-input-username" placeholder="Username">
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-password"><i class="fa fa-user-secret"></i> Password</label>
-        <input type="text" id="node-input-password" placeholder="Password">
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-ssh"><i class="fa fa-podcast"></i> Ssh</label>
-        <input type="text" id="node-input-ssh" placeholder="/home/user/.ssh/id_rsa">
-    </div>  
 
     <div class="form-row">
         <label for="node-input-debug"><i class="fa fa-server"></i> Debug</label>

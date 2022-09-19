@@ -4,6 +4,7 @@ const { Client } = require('ssh2');
 const { Mutex } = require('async-mutex');
 
 module.exports = function (RED) {
+
     async function _connectClient(node, callback, failed = undefined){
         const release = await node.connectMutex.acquire();
 
@@ -53,33 +54,48 @@ module.exports = function (RED) {
         })
 
         
-        node.client.connect(node.options);
+        node.client.connect(node.conf.options);
     }
 
-    function SshV3(config) {
-        RED.nodes.createNode(this, config);
-
+    function SshConf(n) {
+        RED.nodes.createNode(this,n);
         const node = this;
-
         node.options = {
-            host: config.hostname,
-            port: 22,
+            host: node.credentials.hostname ? node.credentials.hostname : undefined,
+            port: node.credentials.port ? node.credentials.port : undefined,
             username: node.credentials.username ? node.credentials.username : undefined,
             password: node.credentials.password ? node.credentials.password : undefined,
-            privateKey: config.ssh ? require('fs').readFileSync(config.ssh) : undefined
+            privateKey: n.ssh ? require('fs').readFileSync(n.ssh) : undefined
         };
-
         node.connectMutex = new Mutex();
         node.sendMutex = new Mutex();
+        
+    };
+        
+
+    RED.nodes.registerType("ssh-conf",SshConf,{
+        credentials: {
+            username: { type: "text" },
+            password: { type: "password" },
+            hostname: { value: "" },
+            port: { value: "" },
+        }
+      });
+    
+
+
+
+    function SshV3(config) {
+        RED.nodes.createNode(this,config);
+        this.conf = RED.nodes.getNode(config.conf);
+        this.name = config.name;
+        let node = this;
+        node.connectMutex = new Mutex();
+        node.sendMutex = new Mutex();
+        
 
         node.status({ fill: "blue", shape: "dot", text: "Initializing" });
-
         
-        node.on('close', function () {
-            node.client && node.client.end();
-            node.client && node.client.destroy();
-        });
-
         node.on('input', async (msg, send, done) => {
             if (!msg.payload) {
                 node.warn("Invalid msg.payload.");
@@ -141,18 +157,21 @@ module.exports = function (RED) {
                 release();
                 node.error(err, msg);
             });
+            _connectClient(node, (conn) => { node.debug("SSH-CLI initial connection succeeded."); });
+        });
+        
+        node.on('close', function () {
+            node.client && node.client.end();
+            node.client && node.client.destroy();
         });
 
-        _connectClient(node, (conn) => { node.debug("SSH-CLI initial connection succeeded."); });
+        
+
+        
 
         node.debug("SSH-CLI setup done.");
     }
-
-    
-    RED.nodes.registerType("ssh-v3",SshV3, {
-        credentials: {
-            username: { type: "text" },
-            password: { type: "password" }
-        }
-    });
-}
+        
+      RED.nodes.registerType("ssh-v3",SshV3);
+       
+};
