@@ -22,9 +22,20 @@ npm i node-red-contrib-ssh-v3
 
 # usage
 
-example:
+add ssh-conf:
 
-![Schermata del 2022-09-17 06-28-03](https://user-images.githubusercontent.com/68069659/190840429-bc1949ea-1823-496e-b96e-2f1cb196876c.png)
+![Schermata del 2022-09-19 19-54-53](https://user-images.githubusercontent.com/68069659/191082553-e61bdb3b-892e-46a1-a1d8-758d6f4ff114.png)
+
+ssh configuration:
+
+![Schermata del 2022-09-19 19-55-23](https://user-images.githubusercontent.com/68069659/191082969-2d9b83f0-766b-4a3c-834a-3a5cbe3fa9d3.png)
+
+# example:
+
+send input msg.payload = "string"
+
+![immagine](https://user-images.githubusercontent.com/68069659/191083539-4a9b067d-67a1-4d63-8b23-829dab4174ee.png)
+
 
 # credits
 
