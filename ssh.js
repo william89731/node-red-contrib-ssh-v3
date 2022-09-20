@@ -95,7 +95,7 @@ module.exports = function (RED) {
 		node.sendMutex = new Mutex();
 
 
-		node.status({ fill: "blue", shape: "dot", text: "Initializing" });
+		node.status({ fill: "yellow", shape: "dot", text: "waiting for input" });
 
 		node.on('input', async (msg, send, done) => {
 

@@ -5,6 +5,7 @@
             ssh: { value: "" },
             name: { value: "" },
             userlabel: { value: "" }
+
         },
         credentials: {
             username: { type: "text" },
@@ -12,21 +13,27 @@
             hostname: { value: "" },
             port: { value: "22" },
         },
-        color: '#7fff00',
+        //color: '#7fff00',
         label: function () {
             return this.userlabel;
         },
         oneditsave: function(d) {
-            let u = $("#node-config-input-username").val();
-            let h = $("#node-config-input-hostname").val();
-            this.userlabel = (u?u+"@":"")+ (h?h:"");
+            //let u = $("#node-config-input-name").val();
+            //let h = $("#node-config-input-hostname").val();
+            //this.userlabel = (u?u+"@":"")+ (h?h:"");
+            this.userlabel = $("#node-config-input-name").val();
         }
     });
 </script>
 
 <script type="text/html" data-template-name="ssh-conf">
     <div class="form-row">
-        <label for="node-config-input-hostname"><i class="fa fa-podcast"></i> Hostname</label>
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> name</label>
+        <input type="text" id="node-config-input-name" placeholder="127.0.0.1">
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-hostname"><i class="fa fa-desktop"></i> Hostname</label>
         <input type="text" id="node-config-input-hostname" placeholder="127.0.0.1">
     </div>
 
@@ -42,7 +49,7 @@
 
     <div class="form-row">
       <label for="node-config-input-password"><i class="fa fa-key"></i> Password</label>
-      <input type="password" id="node-config-input-password" placeholder="STRONG PASS">
+      <input type="password" id="node-config-input-password" placeholder="$PASS">
     </div>
 
     <div class="form-row">
@@ -80,7 +87,7 @@
 </script>
 
 <script type="text/x-red" data-template-name="ssh-v3">
-
+    
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -91,10 +98,10 @@
         <input type="text" id="node-input-conf">
     </div>
 
-    <div class="form-row">
+    <!-- <div class="form-row">
         <label for="node-input-debug"><i class="fa fa-bug"></i> Debug</label>
         <input type="checkbox" id="node-input-debug" placeholder="">
-    </div>
+    </div> -->
 
 </script>
 
