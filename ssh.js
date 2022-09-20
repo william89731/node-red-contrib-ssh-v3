@@ -66,6 +66,8 @@ module.exports = function (RED) {
             username: node.credentials.username ? node.credentials.username : undefined,
             password: node.credentials.password ? node.credentials.password : undefined,
             privateKey: n.ssh ? require('fs').readFileSync(n.ssh) : undefined
+		// TODO privatekey with passphrase will fail
+		// passphrase: "passphraseofprivatekey"
         };
         node.connectMutex = new Mutex();
         node.sendMutex = new Mutex();
@@ -97,10 +99,15 @@ module.exports = function (RED) {
         node.status({ fill: "blue", shape: "dot", text: "Initializing" });
         
         node.on('input', async (msg, send, done) => {
+
             if (!msg.payload) {
-                node.warn("Invalid msg.payload.");
+                node.warn("msg.payload cant be empty");
                 return;
-            }
+            };
+	    if (typeof msg.payload != "string"){
+		node.warn("mag.payload must be string");
+		return
+	    }
 
             const release = await node.sendMutex.acquire();
 
