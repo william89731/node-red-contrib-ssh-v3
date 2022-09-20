@@ -19,10 +19,8 @@
         oneditsave: function(d) {
             let u = $("#node-config-input-username").val();
             let h = $("#node-config-input-hostname").val();
-            
             this.userlabel = (u?u+"@":"")+ (h?h:"");
         }
-        
     });
 </script>
 
@@ -51,11 +49,10 @@
         <label for="node-config-input-ssh"><i class="fa fa-podcast"></i> Ssh</label>
         <input type="text" id="node-config-input-ssh" placeholder="/home/user/.ssh/id_rsa">
     </div> 
-
 </script>
 
 <script type="text/x-red" data-help-name="ssh-conf">
-  <p> ssh configuration</p>
+    <p> ssh configuration</p>
 </script>
 
 
@@ -71,10 +68,8 @@
             name: { value: "" },
             conf: { value: "", type: "ssh-conf" },
             debug: { value: false },
-            
-
         },
-        
+
         inputs: 1,
         outputs: 1,
         icon: "font-awesome/fa-server",
@@ -100,8 +95,7 @@
         <label for="node-input-debug"><i class="fa fa-bug"></i> Debug</label>
         <input type="checkbox" id="node-input-debug" placeholder="">
     </div>
-    
-    
+
 </script>
 
 <script type="text/x-red" data-help-name="ssh-v3">
