@@ -1,0 +1,61 @@
+[
+    {
+        "id": "662f92b34ca0d8cd",
+        "type": "inject",
+        "z": "4ec97f86eec91c2f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "pwd",
+        "payloadType": "str",
+        "x": 270,
+        "y": 1680,
+        "wires": [
+            [
+                "b70a92e16a1d6f6d"
+            ]
+        ]
+    },
+    {
+        "id": "aba75af3dc9262f8",
+        "type": "debug",
+        "z": "4ec97f86eec91c2f",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 1680,
+        "wires": []
+    },
+    {
+        "id": "b70a92e16a1d6f6d",
+        "type": "ssh-v3",
+        "z": "4ec97f86eec91c2f",
+        "conf": "",
+        "debug": false,
+        "x": 390,
+        "y": 1680,
+        "wires": [
+            [
+                "aba75af3dc9262f8"
+            ]
+        ]
+    }
+]

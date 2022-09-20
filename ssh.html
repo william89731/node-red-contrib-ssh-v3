@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-row">
-        <label for="node-config-input-port"><i class="fa fa-server"></i> Port</label>
+        <label for="node-config-input-port"><i class="fa fa-random"></i> Port</label>
         <input type="text" id="node-config-input-port" placeholder="set default (22) or another port">
     </div>
 
@@ -68,6 +68,7 @@
         category: 'server',
         color: '#7fff00',
         defaults: {
+            name: { value: "" },
             conf: { value: "", type: "ssh-conf" },
             debug: { value: false },
             
@@ -96,7 +97,7 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-debug"><i class="fa fa-server"></i> Debug</label>
+        <label for="node-input-debug"><i class="fa fa-bug"></i> Debug</label>
         <input type="checkbox" id="node-input-debug" placeholder="">
     </div>
     
