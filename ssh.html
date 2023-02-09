@@ -5,11 +5,11 @@
             ssh: { value: "" },
             name: { value: "" },
             userlabel: { value: "" }
-
         },
         credentials: {
             username: { type: "text" },
             password: { type: "password" },
+            passphrase: { type: "password" },
             hostname: { value: "" },
             port: { value: "22" },
         },
@@ -56,6 +56,11 @@
         <label for="node-config-input-ssh"><i class="fa fa-podcast"></i> Ssh</label>
         <input type="text" id="node-config-input-ssh" placeholder="/home/user/.ssh/id_rsa">
     </div> 
+    <div class="form-row">
+      <label for="node-config-input-passphrase"><i class="fa fa-key"></i> Key Passphrase</label>
+      <input type="checkbox" id="node-config-input-passphrase-checkbox" onchange="togglepassphrase()">
+      <input type="password" id="node-config-input-passphrase" disabled="true" style="display:none">
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="ssh-conf">
@@ -63,6 +68,23 @@
 </script>
 
 
+<script type="text/javascript">
+    function togglepassphrase() {
+        // checked = true menas passphrase disable = false
+        // checked = false menas passphrase disable = true
+        // so disable param was opposite of checked
+        let checked = document.getElementById('node-config-input-passphrase-checkbox').checked;
+        document.getElementById("node-config-input-passphrase").disabled = !checked;
+        if (checked){
+            document.getElementById("node-config-input-passphrase").style.display = 'inline';
+            document.getElementById("node-config-input-password").style.display = 'none';
+        }
+        else{
+            document.getElementById("node-config-input-passphrase").style.display= 'none'
+            document.getElementById("node-config-input-password").style.display = 'inline';
+        }
+    };
+</script>
 
 
 

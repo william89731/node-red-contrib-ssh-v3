@@ -52,8 +52,12 @@ module.exports = function (RED) {
 			};
 		});
 
-
-		node.client.connect(node.conf.options);
+		// without this try catch if login fails node-red will crash
+		try{
+			node.client.connect(node.conf.options);
+		}catch(e){
+			node.warn(e);
+		}
 	};
 
 	function SshConf(n) {
@@ -64,27 +68,22 @@ module.exports = function (RED) {
 			port: node.credentials.port ? node.credentials.port : undefined,
 			username: node.credentials.username ? node.credentials.username : undefined,
 			password: node.credentials.password ? node.credentials.password : undefined,
+			passphrase: node.credentials.passphrase ? node.credentials.passphrase: undefined,
 			privateKey: n.ssh ? require('fs').readFileSync(n.ssh) : undefined
-			// TODO privatekey with passphrase will fail
-			// passphrase: "passphraseofprivatekey"
 		};
 		node.connectMutex = new Mutex();
 		node.sendMutex = new Mutex();
-
 	};
-
 
 	RED.nodes.registerType("ssh-conf",SshConf,{
 		credentials: {
 			username: { type: "text" },
 			password: { type: "password" },
 			hostname: { value: "" },
+			passphrase: { type: "password" },
 			port: { value: "" },
 		}
 	});
-
-
-
 
 	function SshV3(config) {
 		RED.nodes.createNode(this,config);
