@@ -8,10 +8,9 @@
 
 # node-red-contrib-ssh-v3
 
-ssh connection remote host
+ssh connection remote host.
 
-
-# installation
+### installation
 
 ![Schermata del 2022-09-17 06-29-57](https://user-images.githubusercontent.com/68069659/190840457-8a8a09c0-ab3c-4dc7-bcd7-dfe18ef8e768.png)
 
@@ -20,23 +19,28 @@ or
 npm i node-red-contrib-ssh-v3
 ```
 
-# usage
+### usage
 
-add ssh-conf:
+```add ssh-conf```:
 
 ![Schermata del 2022-09-19 19-54-53](https://user-images.githubusercontent.com/68069659/191082553-e61bdb3b-892e-46a1-a1d8-758d6f4ff114.png)
 
-ssh configuration:
+```ssh configuration```:
 
 ![Schermata del 2022-09-19 19-55-23](https://user-images.githubusercontent.com/68069659/191082969-2d9b83f0-766b-4a3c-834a-3a5cbe3fa9d3.png)
 
-# example:
+### example:
 
-send input msg.payload = "string"
+```send input msg.payload = "string"```:
 
 ![immagine](https://user-images.githubusercontent.com/68069659/191083539-4a9b067d-67a1-4d63-8b23-829dab4174ee.png)
 
+```use msg.session for capture stdout```:
 
-# credits
+![image](https://github.com/william89731/node-red-contrib-ssh-v3/assets/68069659/c1e3825c-390d-4eb7-8cb0-087e05f0c6fe)
+
+
+
+### credits
 
 source from [node-red-contrib-ssh](https://github.com/yroffin/node-red-contrib-ssh)
