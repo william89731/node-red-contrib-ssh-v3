@@ -140,8 +140,10 @@ module.exports = function (RED) {
 
 				const wait = conn.exec(msg.payload, (err, stream) => {
 					if (err) {
-						node.log("Ssh client error in input.");
-						throw err;
+						node.error("Ssh client error on exec: " + err.message, msg);
+						release();
+						done(err);
+						return;
 					}
 
 					stream.on('close', function (code, signal) {
